@@ -1,7 +1,22 @@
 package com.example.television2;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.concurrent.ExecutionException;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.entity.BufferedHttpEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+
 
 
 import android.os.AsyncTask;
@@ -10,8 +25,11 @@ import android.os.StrictMode;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.Menu;
+import android.widget.ImageView;
 
 public class MainActivity extends Activity {
 	TraktAPI api;
@@ -21,13 +39,24 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
-	api = new TraktAPI (this.getApplicationContext());
 		
-	DataGrabber task = new DataGrabber(this);
-
-	task.execute();
-
+		ImageViewFromURL image = new ImageViewFromURL ("http://slurm.trakt.us/images/posters/10257.45.jpg"); 
+		
+		ImageView im = (ImageView)findViewById(R.id.imageView1);
+		try {
+			im.setImageBitmap(image.getImage());
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		api = new TraktAPI (this.getApplicationContext());
+		DataGrabber e = new DataGrabber(this);
+		e.execute();
+		
 
 	//JSONArray array = api.getDataArrayFromJSON("http://api.trakt.tv/search/shows.json/361cd031c2473b06997c87c25ec9c057/o.c.");
 
