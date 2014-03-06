@@ -14,6 +14,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.entity.BufferedHttpEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 
@@ -33,7 +34,7 @@ import android.widget.ImageView;
 
 public class MainActivity extends Activity {
 	TraktAPI api;
-	private JSONObject data;
+	private JSONObject data, object;
 	private JSONArray data2;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,17 +50,32 @@ public class MainActivity extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
+			// TODO Auto-generated catch bloc
 			e.printStackTrace();
 		}
 		
-		api = new TraktAPI (this.getApplicationContext());
-		DataGrabber e = new DataGrabber(this);
-		e.execute();
+	
 		
+		try {
+			Log.e("TEST", getTvShowJSON("Revenge").getJSONObject("ratings").getString("percentage"));
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (ExecutionException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
 
-	//JSONArray array = api.getDataArrayFromJSON("http://api.trakt.tv/search/shows.json/361cd031c2473b06997c87c25ec9c057/o.c.");
 
+	
+		
+	
+	
+	
 	}
 
 	@Override
@@ -69,12 +85,31 @@ public class MainActivity extends Activity {
 		return true;
 	}
 	
-    private class DataGrabber extends AsyncTask<String,Void,Boolean> {
+   
+	
+	
+	public JSONObject getTvShowJSON(String string) throws InterruptedException, ExecutionException{
+		api = new TraktAPI (this.getApplicationContext());
+		DataGrabber e = new DataGrabber(this,string);
+		e.execute();
+		return e.get();
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	private class DataGrabber extends AsyncTask<String,Void,JSONObject> {
 		private ProgressDialog progressdialog;
 		private Context parent;
+		private String id;
 		
-		public DataGrabber(Context parent) {
+		public DataGrabber(Context parent, String id) {
 			this.parent = parent;
+			this.id = id;
 		}
 
 		@Override
@@ -83,15 +118,14 @@ public class MainActivity extends Activity {
 		}
     	
 		@Override
-		protected Boolean doInBackground(String... params) {
-			//data = api.getDataObjectFromJSON("show/summary.json/%k/revenge"+"/extended",true); 
-			data2 = api.getDataArrayFromJSON("show/season.json/%k/revenge/3", true);
+		protected JSONObject doInBackground(String... params) {
+			data = api.getDataObjectFromJSON("show/summary.json/361cd031c2473b06997c87c25ec9c057/" + id,true); 
 			
-			Log.e("TEST", data2.toString());
-			if (data==null) {
-				return false;
-			}
-			return true;
+			
+			//data2 = api.getDataArrayFromJSON("show/season.json/%k/revenge/3", true);
+		
+		return data;
+		
 		}
 		
 		
