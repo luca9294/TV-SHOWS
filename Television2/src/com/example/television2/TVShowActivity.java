@@ -27,7 +27,7 @@ public class TVShowActivity extends Activity {
 		TextView overview =(TextView)findViewById(R.id.overview);
 		ImageView image = (ImageView)findViewById(R.id.image);
 		ImageViewFromURL imageP;
-		
+	
 
 			try {
 				
