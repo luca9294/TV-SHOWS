@@ -13,12 +13,13 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:icon="@drawable/trakt_01"
+        android:label="">
+        
         <activity
-            android:name="com.example.television2.TVShowActivity"
-            android:label="@string/app_name" >
+            android:theme="@style/MyTheme" 
+            android:name="com.example.television2.SearchAcitivity"
+           >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,6 +29,12 @@
         <activity
             android:name="com.example.television2.MainActivity"
             android:label="@string/title_activity_tvshow" >
+        </activity>
+        <activity
+            android:name="com.example.television2.TVShowActivity"
+            android:label="@string/title_activity_search" >
+       
+     
         </activity>
     </application>
 

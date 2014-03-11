@@ -37,11 +37,6 @@ public class ImageViewFromURL {
     }
 
 
-
-
-
-
- 
     class GetXMLTask extends AsyncTask<String, Void, Bitmap> {
         @Override
         protected Bitmap doInBackground(String... urls) {
@@ -76,7 +71,8 @@ public class ImageViewFromURL {
             map = bitmap;
             return bitmap;
         }
- 
+
+        
         // Makes HttpURLConnection and returns InputStream
         private InputStream getHttpConnection(String urlString)
                 throws IOException {

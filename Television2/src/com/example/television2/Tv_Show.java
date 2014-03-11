@@ -12,7 +12,7 @@ import android.os.AsyncTask;
 
 public class Tv_Show {
 	String title, first_aired_iso,country,overview;
-	String year, runtime,image,genre,percentage,loves,hate,status,title_n;
+	String year, runtime,image,genre,percentage,loves,hate,status,title_n, seasons_n;
 
 	JSONObject object;
 	TraktAPI api;
@@ -43,6 +43,23 @@ public class Tv_Show {
 		return title;
 	}
 	
+	public void getSeasonsN() throws InterruptedException, ExecutionException{
+		api = new TraktAPI (context);
+		String title_c = title.replace(" ", "-");
+		title_c = title_c.toLowerCase();
+		
+		DataGrabber e = new DataGrabber(context,title_c);
+		e.execute();
+		
+	
+	
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -69,7 +86,7 @@ public class Tv_Show {
 
 		@Override
 		protected void onPreExecute() {
-		   // progressdialog = ProgressDialog.show(parent,"", "Retrieving data ...", true);
+		  // progressdialog = ProgressDialog.show(parent,"", "Retrieving data ...", true);
 		}
     	
 		@Override
@@ -82,12 +99,9 @@ public class Tv_Show {
 		return data;
 		
 		}
-	
-	
-	
-	
+		
+
 	}
-	
 	
 	
 	

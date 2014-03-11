@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,6 +19,11 @@ public class TVShowActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tvshow);
+		Bundle bundle = getIntent().getExtras();
+
+		String toSearch = bundle.getString("toSearch");
+		
+		
 		TextView title =(TextView)findViewById(R.id.title);
 		TextView premiere =(TextView)findViewById(R.id.premiere);
 		TextView country =(TextView)findViewById(R.id.country);
@@ -25,13 +31,13 @@ public class TVShowActivity extends Activity {
 		TextView runtime =(TextView)findViewById(R.id.runtime);
 		TextView genre =(TextView)findViewById(R.id.genre);
 		TextView overview =(TextView)findViewById(R.id.overview);
-		ImageView image = (ImageView)findViewById(R.id.image);
-		ImageViewFromURL imageP;
+		WebView image = (WebView)findViewById(R.id.image);
+	
 	
 
 			try {
 				
-				prova = new Tv_Show("The walking dead",this);
+				prova = new Tv_Show(toSearch,this);
 				
 				title.setText(prova.title_n);
 				premiere.setText(prova.first_aired_iso);
@@ -41,9 +47,14 @@ public class TVShowActivity extends Activity {
 				percentage.setText(prova.percentage + "%");
 				overview.setText(prova.overview);
 				overview.setMovementMethod(new ScrollingMovementMethod());
-				imageP = new ImageViewFromURL (prova.image); 
-				image.setImageBitmap(imageP.getImage());
+				image.loadUrl((prova.image).replace(".jpg", "-300.jpg"));
+				image.setInitialScale(157);
+				image.setFocusable(false);
+				image.setClickable(false);
 				
+			
+				
+			
 				
 				
 				
@@ -57,6 +68,8 @@ public class TVShowActivity extends Activity {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+			
 			
 			
 			
