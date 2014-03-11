@@ -20,11 +20,12 @@ public class TVShowActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tvshow);
 		Bundle bundle = getIntent().getExtras();
+	
 
 		String toSearch = bundle.getString("toSearch");
 		
-		
-		TextView title =(TextView)findViewById(R.id.title);
+
+		//TextView title =(TextView)findViewById(R.id.title);
 		TextView premiere =(TextView)findViewById(R.id.premiere);
 		TextView country =(TextView)findViewById(R.id.country);
 		TextView percentage =(TextView)findViewById(R.id.percentage);
@@ -39,7 +40,7 @@ public class TVShowActivity extends Activity {
 				
 				prova = new Tv_Show(toSearch,this);
 				
-				title.setText(prova.title_n);
+				//title.setText(prova.title_n);
 				premiere.setText(prova.first_aired_iso);
 				country.setText(prova.country);
 				runtime.setText(prova.runtime + "m");
